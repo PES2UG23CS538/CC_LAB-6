@@ -3,16 +3,10 @@ pipeline {
 
     stages {
 
-        stage('Clone') {
-            steps {
-                echo 'Cloning repository...'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("lab6-backend")
+                    sh 'docker build -t lab6-backend backend'
                 }
             }
         }
@@ -20,7 +14,8 @@ pipeline {
         stage('Run Container') {
             steps {
                 script {
-                    sh 'docker run -d --name lab6-container -p 8081:80 lab6-backend || true'
+                    sh 'docker rm -f lab6-container || true'
+                    sh 'docker run -d -p 8081:8080 --name lab6-container lab6-backend'
                 }
             }
         }
