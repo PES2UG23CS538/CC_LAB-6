@@ -26,7 +26,7 @@ pipeline {
         stage('Deploy NGINX Load Balancer') {
             steps {
                 sh 'docker rm -f nginx || true'
-                sh 'docker run -d -p 8080:80 --name nginx --link backend1 --link backend2 lab6-nginx'
+                sh 'docker run -d -p 8090:80 --name nginx --link backend1 --link backend2 lab6-nginx'
             }
         }
     }
